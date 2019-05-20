@@ -4,33 +4,34 @@ exec { 'update':                    # exec resource named 'apt-update'
 }
 
 # install apache2 package
-package { 'httpd':
+package { 'nginx':
   require => Exec['update'],        # require 'apt-update' before installing
   ensure => installed,
+  provider => 'amazon-linux-extras'
 }
 
 # ensure apache2 service is running
-service { 'httpd':
+service { 'nginx':
   ensure => running,
 }
 
 # install mysql-server package
-package { 'mariadb-server':
-  require => Exec['update'],        # require 'apt-update' before installing
-  ensure => installed,
-}
+#package { 'mariadb-server':
+#  require => Exec['update'],        # require 'apt-update' before installing
+#  ensure => installed,
+#}
 
 # ensure mysql service is running
-service { 'mariadb':
-  ensure => running,
+#service { 'mariadb':
+#  ensure => running,
 #  ensure => installed,
-}
+#}
 
 # ensure info.php file exists
 file { '/var/www/html/info.php':
   ensure => file,
   content => '<?php  phpinfo(); ?>',    # phpinfo code
-  require => Package['httpd'],        # require 'apache2' package before creating
+#  require => Package['httpd'],        # require 'apache2' package before creating
 }
 
 

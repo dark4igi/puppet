@@ -15,7 +15,7 @@ service { 'httpd':
 }
 
 # install mysql-server package
-package { 'mariadb':
+package { 'mariadb-server':
   require => Exec['update'],        # require 'apt-update' before installing
   ensure => installed,
 }
@@ -23,12 +23,7 @@ package { 'mariadb':
 # ensure mysql service is running
 service { 'mariadb':
   ensure => running,
-}
-
-# install php5 package
-package { 'php':
-  require => Exec['update'],        # require 'apt-update' before installing
-  ensure => installed,
+#  ensure => installed,
 }
 
 # ensure info.php file exists
